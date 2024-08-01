@@ -10,7 +10,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('HttpInterceptor works');
+    
     
     const authToken = localStorage.getItem(`${environment.tokenName}`);
     if (typeof authToken==='string'  && authToken !==null && authToken !== undefined && authToken.trim().length > 0) {
@@ -20,7 +20,8 @@ export class AuthInterceptorService implements HttpInterceptor {
        
        
        return next.handle(authRequest);
-    }else{      
+    }else{  
+      
       return next.handle(req);
     }
   }
