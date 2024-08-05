@@ -17,6 +17,8 @@
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" formControlName= "password" placeholder="Password">
             </div>
+            <p *ngIf="error401" class="text-danger">Username or password incorrect</p>
+            <p *ngIf="errorServer" class="text-danger">Internal server error</p>
             <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
             <a href="#" class="d-block text-center text-primary">Forgotten password?</a>
             <hr>
