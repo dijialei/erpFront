@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center py-5">
+    <table>
+        <ng-container *ngFor="let key of keys">
+
+
+            <tr>
+                <td class="py-2">{{key | titlecase }}:</td>
+                <td class="py-2"> <span class="input-group-text">{{information[key]}}</span></td>
+
+            </tr>
+        </ng-container>
+        <tr>
+            <td class="py-2">Password:</td>
+            <td class="py-2">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#passwordModal">
+                    <i class="bi bi-pencil"></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel"
+                    aria-hidden="true" data-bs-backdrop="static">
+                    <div class="modal-dialog">
+                        <form (submit)="onSubmit()" [formGroup]="changePw">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="passwordModalLabel">Change your password</h1>
+                                    <button type="reset" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table>
+                                        <tr>
+                                            <td>Current Password:</td>
+                                            <td> <input type="password" class="form-control"
+                                                    formControlName="currentPassword">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>New Password:</td>
+                                            <td> <input type="password" class="form-control"
+                                                    formControlName="newPassword">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Confirm:</td>
+                                            <td> <input type="password" class="form-control" formControlName="confirm">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button [disabled]="changePw.invalid" type="submit" class="btn btn-primary"
+                                        data-bs-dismiss="modal">Save changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
