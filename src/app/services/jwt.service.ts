@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {jwtDecode} from 'jwt-decode';
+import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,10 +10,23 @@ export class JwtService {
 
    decodeToken(token: string): any {
     try {
-      return jwtDecode(token);  // 调用 jwt_decode 函数
+      return jwtDecode(token);  
     } catch (Error) {
-      console.error('无效的 token', Error);
+      localStorage.removeItem(environment.tokenName);
       return null;
     }
+  }
+  isTokenExpired(body: any): boolean {
+    let result = true;
+    if (!body || !body.exp) {
+      return result;
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000);  
+    result = body.exp < currentTime;
+    if(result){
+      localStorage.removeItem(environment.tokenName);
+    }
+    return result;
   }
 }
