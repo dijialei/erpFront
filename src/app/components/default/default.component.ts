@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment.development';
-import { JwtService } from '../services/jwt.service';
+import { environment } from '../../../environments/environment.development';
+import { JwtService } from '../../services/jwt.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 

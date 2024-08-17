@@ -13,8 +13,9 @@ export const authGuard: CanActivateFn = (route, state) => {
     result = !_JwtService.isTokenExpired(body);
   }
   if (!result) {
-    router.navigateByUrl('/login');
+    router.navigate(['/login'],{queryParams:{returnUrl:state.url}});
   }
-
+  
+  
   return result;
 };
