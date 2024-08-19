@@ -67,46 +67,50 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Create new order ...</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <table class="w-100">
-                    <tr>
-                        <td>SAV Number:</td>
-                        <td><input type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td>Client Name:</td>
-                        <td><input type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td>Model:</td>
-                        <td><input type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td>BT NUMBER:</td>
-                        <td><input type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td>Acquisition Date:</td>
-                        <td>
-                            <mat-card class="demo-inline-calendar-card">
-                                <mat-calendar [(selected)]="selected"></mat-calendar>
-                            </mat-card>
-                            <p>Selected date: {{selected | date:'MM/dd/yyyy'}}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Description:</td>
-                        <td> <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                style="height: 100px"></textarea></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Create</button>
-            </div>
+            <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <table class="w-100">
+                        <tr>
+                            <td>SAV Number:</td>
+                            <td><input type="text" class="form-control" formControlName="reference"></td>
+                        </tr>
+                        <tr>
+                            <td>Client Name:</td>
+                            <td><input type="text" class="form-control" formControlName="client"></td>
+                        </tr>
+                        <tr>
+                            <td>Model:</td>
+                            <td><input type="text" class="form-control" formControlName="model"></td>
+                        </tr>
+                        <tr>
+                            <td>BT NUMBER:</td>
+                            <td><input type="text" class="form-control" formControlName="sn"></td>
+                        </tr>
+                        <tr>
+                            <td>Acquisition Date:</td>
+                            <td>
+                                <mat-card class="demo-inline-calendar-card">
+                                    <mat-calendar [(selected)]="selected"
+                                        (selectedChange)="selectedChange()"></mat-calendar>
+                                </mat-card>
+                                <p>Selected date: {{selected | date:'MM/dd/yyyy'}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Description:</td>
+                            <td> <textarea class="form-control" placeholder="Leave a comment here"
+                                    id="floatingTextarea2" style="height: 100px"
+                                    formControlName="description"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Create</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
