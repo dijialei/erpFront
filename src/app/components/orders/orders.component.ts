@@ -1,11 +1,12 @@
 
 import { CommonModule } from '@angular/common';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { OrdersService } from '../../services/orders.service';
+import { Order } from '../../models/order';
 
 @Component({
   selector: 'app-orders',
@@ -19,9 +20,11 @@ import { OrdersService } from '../../services/orders.service';
 export class OrdersComponent implements OnInit {
   selected!:Date;
   orderForm!:FormGroup;
+  orderList:Order[]=[];
 
   constructor(private fb:FormBuilder,
-    private _ordersService:OrdersService
+    private _ordersService:OrdersService,
+    private cdr:ChangeDetectorRef
   ){
 
   }
@@ -39,7 +42,10 @@ export class OrdersComponent implements OnInit {
    });
    this._ordersService.findAllById().subscribe({
     next: res=>{
-      console.log(res.body);      
+      this.orderList=res.body?res.body:[];
+      console.log(this.orderList);
+      this.cdr.detectChanges();
+      
     },
     error:err=>{
       console.log(err);
@@ -78,7 +84,7 @@ export class OrdersComponent implements OnInit {
 
   onSubmit(){
     
-    console.log(this.orderForm.value);
+    
     this._ordersService.addOrder(this.orderForm.value).subscribe({
       next:res=>{
         console.log(res.body);

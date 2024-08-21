@@ -1,3 +1,6 @@
+import { Instruction } from "./instruction";
+import { State } from "./state";
+
 export interface Order{
     // private Integer id;
     id?:number,
@@ -17,8 +20,9 @@ export interface Order{
     result?:string,
     // private Boolean replaceAdvance;
     replaceAdvance?:boolean,
-    // private UserDto userDto;
-    // private List<RecordDto> recordDtos;
-    // private StateDto stateDto;
-    // private InstructionDto instructionDto;
+    // private StateDto state;
+    state?:State,
+    // private InstructionDto instruction;
+    instruction?:Instruction
+    
 }

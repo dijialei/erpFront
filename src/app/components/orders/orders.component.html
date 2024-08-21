@@ -26,10 +26,10 @@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>2024-04-0666</td>
+                <tbody >
+                    <tr *ngFor="let order of orderList;index as i">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{order.reference}}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm w-50"> + </button>
                         </td>
@@ -37,12 +37,13 @@
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    OPEN
+                                    {{order.state?.state}}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">CNB</a></li>
-                                    <li><a class="dropdown-item" href="#">CLOSE</a></li>
+                                    <li *ngIf="order.state?.state != 'OPEN'"><a class="dropdown-item" href="#">OPEN</a></li>
+                                    <li *ngIf="['OPEN','CNB','CLOSE'].includes(order.state?.state || '')"><a class="dropdown-item" href="#">Turn to SAV</a></li>
+                                    <li *ngIf="order.state?.state != 'CNB'"><a class="dropdown-item" href="#">CNB</a></li>
+                                    <li *ngIf="order.state?.state != 'CLOSE'"><a class="dropdown-item" href="#">CLOSE</a></li>
                                 </ul>
                             </div>
                         </td>
