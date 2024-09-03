@@ -15,7 +15,7 @@ export class OrdersService {
   addOrder(obj:any){
     return this.http.post(`${this._backUrl}/orders`,obj,{observe:'response'});
   }
-  findAllById(){
-    return this.http.get<Order[]>(`${this._backUrl}/orders`,{observe:'response'});
+  findAllByUserId(status:string){
+    return this.http.get<Order[]>(`${this._backUrl}/orders`,{params:{status},observe:'response'});
   }
 }

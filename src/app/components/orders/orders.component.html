@@ -1,12 +1,14 @@
 <div class="px-5 py-3 ">
     <div class="border rounded">
-        <div class=" d-flex px-sm-5 pt-2  bg-light">
+        <div class=" d-flex px-sm-5 pt-2  bg-light position-sticky top-0 z-index-fixed">
             <ul class="nav nav-tabs me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Active</a>
+                    <a class="nav-link " aria-current="page"  [routerLink]="'/home/orders'" [queryParams]="{opening:true}" [routerLinkActive]="'active'" (click)="changeStatus('OPEN')">Active</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Closed Orders</a>
+                    
+                    <a class="nav-link" [routerLink]="'/home/orders'" [queryParams]="{opening:false}" [routerLinkActive]="'active'" (click)="changeStatus('CLOSE')" >Closed Orders</a>
+
                 </li>
             </ul>
             <!-- Button trigger modal -->
@@ -35,14 +37,19 @@
                         </td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-sm dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    [ngClass]="{
+                                        'btn-secondary ': opening,
+                                        'btn-success':order.state?.state ==='OPEN',
+                                        'btn-warning': !['OPEN','CLOSE'].includes(order.state?.state || '') ,
+                                    }">
                                     {{order.state?.state}}
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li *ngIf="order.state?.state != 'OPEN'"><a class="dropdown-item" href="#">OPEN</a></li>
-                                    <li *ngIf="['OPEN','CNB','CLOSE'].includes(order.state?.state || '')"><a class="dropdown-item" href="#">Turn to SAV</a></li>
-                                    <li *ngIf="order.state?.state != 'CNB'"><a class="dropdown-item" href="#">CNB</a></li>
+                                    <li *ngIf="['OPEN','CNB','CLOSE'].includes(order.state?.state || '') && opening"><a class="dropdown-item" href="#">Turn to SAV</a></li>
+                                    <li *ngIf="order.state?.state != 'CNB' && opening"><a class="dropdown-item" href="#">CNB</a></li>
                                     <li *ngIf="order.state?.state != 'CLOSE'"><a class="dropdown-item" href="#">CLOSE</a></li>
                                 </ul>
                             </div>
