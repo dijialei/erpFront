@@ -19,7 +19,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersComponent implements OnInit {
-  selected!: Date;
+  selectedDate!: Date;
   orderForm!: FormGroup;
   orderList: Order[] = [];
   opening!: boolean;
@@ -95,11 +95,14 @@ export class OrdersComponent implements OnInit {
 
       }
     })
-
+    this.formReset();
+  }
+  formReset(){
+    this.selectedDate = new Date;
     this.orderForm.reset();
   }
-  selectedChange() {
-    this.registrationTime.setValue(new Date(this.selected.getTime() - this.selected.getTimezoneOffset() * 60000));
+  selectedDateChange() {
+    this.registrationTime.setValue(new Date(this.selectedDate.getTime() - this.selectedDate.getTimezoneOffset() * 60000));
   }
 
   findOrders(status:string){

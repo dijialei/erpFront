@@ -24,5 +24,9 @@ export const routes: Routes = [
                 loadComponent:()=>import('./components/default/default.component').then(m=>m.DefaultComponent)
             }
         ]
-    }
+    },
+    // {
+    //     path:'**',
+    //     loadComponent:()=>import('./components/login/login.component').then(m=>m.LoginComponent)
+    // }
 ];

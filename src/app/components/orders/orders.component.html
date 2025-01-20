@@ -3,11 +3,14 @@
         <div class=" d-flex px-sm-5 pt-2  bg-light position-sticky top-0 z-index-fixed">
             <ul class="nav nav-tabs me-auto">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page"  [routerLink]="'/home/orders'" [queryParams]="{opening:true}" [routerLinkActive]="'active'" (click)="changeStatus('OPEN')">Active</a>
+                    <a class="nav-link " aria-current="page" [routerLink]="'/home/orders'"
+                        [queryParams]="{opening:true}" [routerLinkActive]="'active'"
+                        (click)="changeStatus('OPEN')">Active</a>
                 </li>
                 <li class="nav-item">
-                    
-                    <a class="nav-link" [routerLink]="'/home/orders'" [queryParams]="{opening:false}" [routerLinkActive]="'active'" (click)="changeStatus('CLOSE')" >Closed Orders</a>
+
+                    <a class="nav-link" [routerLink]="'/home/orders'" [queryParams]="{opening:false}"
+                        [routerLinkActive]="'active'" (click)="changeStatus('CLOSE')">Closed Orders</a>
 
                 </li>
             </ul>
@@ -28,7 +31,7 @@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     <tr *ngFor="let order of orderList;index as i">
                         <th scope="row">{{i+1}}</th>
                         <td>{{order.reference}}</td>
@@ -37,9 +40,8 @@
                         </td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                    [ngClass]="{
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" [ngClass]="{
                                         'btn-secondary ': opening,
                                         'btn-success':order.state?.state ==='OPEN',
                                         'btn-warning': !['OPEN','CLOSE'].includes(order.state?.state || '') ,
@@ -47,10 +49,14 @@
                                     {{order.state?.state}}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li *ngIf="order.state?.state != 'OPEN'"><a class="dropdown-item" href="#">OPEN</a></li>
-                                    <li *ngIf="['OPEN','CNB','CLOSE'].includes(order.state?.state || '') && opening"><a class="dropdown-item" href="#">Turn to SAV</a></li>
-                                    <li *ngIf="order.state?.state != 'CNB' && opening"><a class="dropdown-item" href="#">CNB</a></li>
-                                    <li *ngIf="order.state?.state != 'CLOSE'"><a class="dropdown-item" href="#">CLOSE</a></li>
+                                    <li *ngIf="order.state?.state != 'OPEN'"><a class="dropdown-item" href="#">OPEN</a>
+                                    </li>
+                                    <li *ngIf="['OPEN','CNB','CLOSE'].includes(order.state?.state || '') && opening"><a
+                                            class="dropdown-item" href="#">Turn to SAV</a></li>
+                                    <li *ngIf="order.state?.state != 'CNB' && opening"><a class="dropdown-item"
+                                            href="#">CNB</a></li>
+                                    <li *ngIf="order.state?.state != 'CLOSE'"><a class="dropdown-item"
+                                            href="#">CLOSE</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -73,11 +79,11 @@
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create new order ...</h1>
-                <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Create new order ...</h1>
+                    <button type="button" class="btn-close" (click)="formReset()" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <div class="modal-body">
                     <table class="w-100">
                         <tr>
@@ -100,10 +106,10 @@
                             <td>Acquisition Date:</td>
                             <td>
                                 <mat-card class="demo-inline-calendar-card">
-                                    <mat-calendar [(selected)]="selected"
-                                        (selectedChange)="selectedChange()"></mat-calendar>
+                                    <mat-calendar [(selected)]="selectedDate"
+                                        (selectedChange)="selectedDateChange()"></mat-calendar>
                                 </mat-card>
-                                <p>Selected date: {{selected | date:'MM/dd/yyyy'}}</p>
+                                <p>Selected date: {{selectedDate | date:'MM/dd/yyyy'}}</p>
                             </td>
                         </tr>
                         <tr>
@@ -115,7 +121,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" (click)="formReset()" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Create</button>
                 </div>
             </form>
