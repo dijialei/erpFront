@@ -15,4 +15,7 @@ private _backUrl = environment.url;
     return this._http.post<any>(`${this._backUrl}/login`,obj,{observe:'response'});
 
   }
+  logout():Observable<any>{
+    return this._http.get<any>(`${this._backUrl}/signout`,{observe:'response'});
+  }
 }

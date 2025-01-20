@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
     if (this.token && !this._jwtService.isTokenExpired(this._jwtService.decodeToken(this.token))) {
       this.router.navigateByUrl('/home');
     }
+    localStorage.removeItem(environment.tokenName);
     this.route.queryParams.subscribe(params => {
       this.returnUrl = params['returnUrl'] || '/home';
 
